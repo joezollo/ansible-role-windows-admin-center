@@ -1,5 +1,4 @@
 ---
-- hosts: localhost
-  remote_user: root
+- hosts: all
   roles:
-    - ansible-role-windows-admin-center
+    - role: /mnt/c/Github/ansible-role-windows-admin-center

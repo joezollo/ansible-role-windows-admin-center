@@ -5,7 +5,6 @@
   win_get_url:
     url: "{{ wac_download_url }}"
     dest: "{{ wac_download_path }}"
-    force: yes
     timeout: 20
 
 - name: Install WAC with Self Signed Certificate
@@ -17,7 +16,7 @@
     - SME_PORT={{ wac_sme_port }}
     - SSL_CERTIFICATE_OPTION={{ wac_ssl_certificate_option }}
     - RESTART_WINRM=0
-    path: "{{ wac_local_install_path }}"
+    path: "{{ wac_download_path }}"
   when: wac_ssl_certificate_option == "generate"
 
 - name: Install WAC with Pre Installed Certificate
@@ -30,9 +29,14 @@
     - SSL_CERTIFICATE_OPTION={{ wac_ssl_certificate_option }}
     - SME_THUMBPRINT={{ wac_sme_thumbprint }}
     - RESTART_WINRM=0
-    path: "{{ wac_local_install_path }}"
+    path: "{{ wac_download_path }}"
   when: wac_ssl_certificate_option == "installed"
 
 - name: Restart Server
   win_reboot:
       msg: Rebooting to Complete Windows Admin Center Installation
+
+- name: Delete Installer
+  win_file:
+      path: "{{ wac_download_path }}"
+      state: absent
