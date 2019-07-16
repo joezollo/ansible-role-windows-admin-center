@@ -1,7 +1,9 @@
 Ansible Role: Windows Admin Center
 =========
 
-A brief description of the role goes here.
+Installs or removes Windows Admin Center on Windows Server or Windows 10. Windows Admin Center is a locally deployed, browser-based app for managing servers, clusters, hyper-converged infrastructure, and Windows 10 PCs. It comes at no additional cost beyond Windows and is ready to use in production.
+
+NOTE: This role is not yet available in Ansible Galaxy.
 
 Requirements
 ------------
@@ -10,12 +12,38 @@ Requirements
 * Windows Server 2016 
 * Windows Server 2019
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
-
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Available variables are listed below, along with default values (see `defaults/main.yml`):
+
+  wac_state: present
+
+The state of Windows Admin Center, present will install the service, ab
+
+  wac_download_url: https://aka.ms/WACDownload
+
+Download to the MSI Installation file, defaults to Microsoft's CDN which has the latest available versionl.
+
+  wac_download_path: C:\\Windows\\Temp\\wac.msi
+
+The folder and file path where the Windows Admin Center installation artifact is downloaded to.
+
+  wac_sme_port: 8443
+
+The port that Windows Admin Center's HTTP web server will listen on. WAC does not use IIS so watch out for port conflicts.
+
+  wac_ssl_certificate_option: generate
+
+Defines how SSL certificates are handled, installer can generate a self signed certificate (use the value 'generate', which is the default) or use one that's already installed (change value to 'installed').
+
+  wac_sme_thumbprint: 
+
+The thubmprint of the certificate you wish to use for Windows Admin Center's web server. If the certificate option is set to installed, wac_sme_thumbprint is required. Note: There is no default value here.
+
+  wac_product_id: '{65E83844-8B8A-42ED-B78D-BA021BE4AE83}'
+
+Windows Admin Center's MSI Installer ID, only change this if you know what you're doing.
 
 Dependencies
 ------------
@@ -25,11 +53,11 @@ None
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: win_servers
+      vars:
+        wac_state: present
       roles:
-         - ansible-role-windows-admin-center
+         - /path/to/ansible-role-windows-admin-center
 
 License
 -------
@@ -39,4 +67,4 @@ WIP
 Author Information
 ------------------
 
-Joseph Zollo (joe@zollo.net)
+This role was created by Joseph Zollo (joe@zollo.net)

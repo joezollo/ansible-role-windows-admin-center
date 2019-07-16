@@ -7,23 +7,23 @@ pipeline {
         // sudo yum -y install python36u python36u-pip python36u-devel git curl gcc
         // git config --global http.sslVerify false
         // sudo curl -fsSL get.docker.com | bash
-        label 'Molecule_Slave'
+        label 'molecule_slave'
     }
 
     stages {
 
-        stage ('Get latest code') {
+        stage ('Get Code From SCM') {
             steps {
                 checkout scm
             }
         }
 
-        stage ('Setup Python virtual environment') {
+        stage ('Setup Python vEnv') {
             steps {
                 sh '''
                     export HTTP_PROXY=http://10.123.123.123:8080
                     export HTTPS_PROXY=http://10.123.123.123:8080
-                    pip3.6 install virtualenv
+                    pip3 install virtualenv
                     virtualenv virtenv
                     source virtenv/bin/activate
                     pip install --upgrade ansible molecule docker
@@ -31,7 +31,7 @@ pipeline {
             }
         }
 
-        stage ('Display versions') {
+        stage ('Dump Version Info to Console') {
             steps {
                 sh '''
                     source virtenv/bin/activate
@@ -43,7 +43,7 @@ pipeline {
             }
         }
 
-        stage ('Molecule test') {
+        stage ('Molecule Test') {
             steps {
                 sh '''
                     source virtenv/bin/activate
