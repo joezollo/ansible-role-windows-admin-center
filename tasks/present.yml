@@ -9,7 +9,7 @@
 - name: Install WAC with Self Signed Certificate
   win_package:
     creates_path: "{{ wac_local_install_path }}"
-    creates_service: Windows Admin Center 
+    creates_service: Windows Admin Center
     expected_return_code: 0,3010
     arguments:
     - SME_PORT={{ wac_sme_port }}
@@ -21,7 +21,7 @@
 - name: Install WAC with Pre Installed Certificate
   win_package:
     creates_path: "{{ wac_local_install_path }}"
-    creates_service: Windows Admin Center 
+    creates_service: Windows Admin Center
     expected_return_code: 0,3010
     arguments:
     - SME_PORT={{ wac_sme_port }}
