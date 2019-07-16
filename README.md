@@ -19,7 +19,7 @@ Available variables are listed below, along with default values (see `defaults/m
 
     wac_state: present
 
-The state of Windows Admin Center, present will install the service, ab
+The state of Windows Admin Center, present (default) will install the latest version, absent will remove it.
 
     wac_download_url: https://aka.ms/WACDownload
 
