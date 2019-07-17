@@ -3,8 +3,6 @@ Ansible Role: Windows Admin Center
 
 Installs or removes Windows Admin Center on Windows Server or Windows 10. Windows Admin Center is a locally deployed, browser-based app for managing servers, clusters, hyper-converged infrastructure, and Windows 10 PCs. It comes at no additional cost beyond Windows and is ready to use in production.
 
-NOTE: This role is not yet available in Ansible Galaxy.
-
 Requirements
 ------------
 * Windows Server 2012
@@ -57,7 +55,7 @@ Example Playbook
       vars:
         wac_state: present
       roles:
-         - /path/to/ansible-role-windows-admin-center
+         - joezollo.windows_admin_center
 
 License
 -------
