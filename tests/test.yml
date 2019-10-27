@@ -1,4 +1,13 @@
 ---
 - hosts: all
+  tasks:
+    docker_container:
+      name: windowstest 
+      image: mcr.microsoft.com/windows/servercore:1903 
+      docker_host: tcp://localhost:2375
+      state: started 
+      entrypoint: cmd 
+      command: 
+      - 
   roles:
     - role: /mnt/c/Github/ansible-role-windows-admin-center
