@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:1903
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 # Metadata indicating an image maintainer.
 LABEL maintainer="joe@zollo.net"
@@ -9,8 +9,8 @@ RUN NET LOCALGROUP "Administrators" "ansible" /ADD
 
 # Install OpenSSH
 RUN powershell -Command \
-    Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0 ; \
-    Start-Service sshd ;
+    Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); \
+    choco install openssh -y -params '"/SSHServerFeature"' ;
 
 # Sets a command or process that will run each time a container is run from the new image.
 CMD [ "cmd" ]
