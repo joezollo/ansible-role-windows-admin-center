@@ -4,7 +4,7 @@
   win_get_url:
     url: "{{ wac_download_url }}"
     dest: "{{ wac_download_path }}"
-    timeout: 20
+    follow_redirects: all
 
 - name: Install WAC with Self Signed Certificate
   win_package:
