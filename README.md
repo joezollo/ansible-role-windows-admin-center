@@ -43,6 +43,22 @@ The thubmprint of the certificate you wish to use for Windows Admin Center's web
 
 Windows Admin Center's MSI Installer ID, only change this if you know what you're doing.
 
+    wac_constrained_delegation_enabled: false
+
+When enabled, configures your Active Directory for constrained delegation on nodes specified in `wac_constrained_delegation_list`.
+
+    wac_server_hostname: ""
+
+The Active Directory Computer Object name of your Windows Admin Center Gateway Server, depending on how you structure your inventory file, it can often be set to `{{ inventory_hostname }}`.
+
+    wac_constrained_delegation_ad_server: ""
+
+Inventory name of an Active Directory Domain Controller, should line up with your inventory. Actions are delegated to this server so authentication will need to already be defined.
+
+    wac_constrained_delegation_list: []
+
+List of Active Directory Computer Objects that you wish to grant constrained delegation access to (via Windows Admin Center). Depending on how you structure your inventory file, it can often be set to a group list object `{{ groups['windows_group_name'] }}`.
+
 Dependencies
 ------------
 
@@ -56,6 +72,21 @@ Example Playbook
         wac_state: present
       roles:
          - joezollo.windows_admin_center
+
+    - hosts: win_servers
+      vars:
+        wac_state: present
+        wac_constrained_delegation_enabled: true
+        wac_constrained_delegation_ad_server: jz-srv01
+        wac_server_hostname: zollo-srv09
+        wac_constrained_delegation_list:
+          - jz-srv01
+          - jz-srv02
+          - jz-srv03
+          - jz-srv04
+      roles:
+         - joezollo.windows_admin_center
+
 
 License
 -------
