@@ -38,16 +38,16 @@ install:
 
 # install ansible and python prereqs in wsl
 - cmd: wsl -e uname -a
-- cmd: wsl -e apt install python3 python3-pip -y
+- cmd: wsl -e sudo apt install python3 python3-pip -y
 - cmd: wsl -e python3 -m pip install --upgrade pip
 - cmd: wsl -e python3 -m pip install pywinrm
 - cmd: wsl -e python3 -m pip install ansible==%ANSIBLE_VERSION%
 - cmd: wsl -e ansible --version
 - cmd: wsl -e echo localhost ansible_user=$WIN_USER ansible_password=$WIN_PASS ansible_connection=winrm
-- cmd: wsl -e ls -l /mnt/c/git/%ROLE_NAME%
+- cmd: wsl -e sudo ls -l /mnt/c/git/%ROLE_NAME%
 - cmd: wsl -e ansible -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml -m win_ping -vvvv localhost
-- cmd: wsl -e mkdir -p $DEFAULT_ROLES_PATH
-- cmd: wsl -e cp -R /mnt/c/git/%ROLE_NAME% /etc/ansible/roles/%APPVEYOR_PROJECT_NAME%
+- cmd: wsl -e sudo mkdir -p $DEFAULT_ROLES_PATH
+- cmd: wsl -e sudo cp -R /mnt/c/git/%ROLE_NAME% /etc/ansible/roles/%APPVEYOR_PROJECT_NAME%
 
 build: off
 test_script:
