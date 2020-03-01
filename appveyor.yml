@@ -3,7 +3,6 @@ image: Visual Studio 2019
 clone_folder: C:\git\ansible-role-windows-admin-center
 skip_commits:
   message: /^\(?doc|travis\)?.*/
-clone_depth: 10
 init:
 - SET
 - 'echo System architecture: %PLATFORM%'
@@ -27,8 +26,8 @@ matrix:
   fast_finish: true
 
 install:
-- cmd: net user /Y /add $env:WIN_USER $env:WIN_PASS
-- cmd: net localgroup administrators $env:WIN_USER /add
+- ps: net user /Y /add $env:WIN_USER $env:WIN_PASS
+- ps: net localgroup administrators $env:WIN_USER /add
 - ps: >-
     $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
     $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
@@ -37,17 +36,16 @@ install:
 - cmd: winrm quickconfig
 - cmd: winrm quickconfig -transport:https
 - cmd: winrm enumerate winrm/config/Listener
-- cmd: >-
-    wsl -e uname -a
-    wsl -e python3 -m pip install --upgrade pip
-    wsl -e python3 -m pip install pywinrm
-    wsl -e python3 -m pip install ansible==%ANSIBLE_VERSION%
-    wsl -e ansible --version
-    wsl -e echo localhost ansible_user=$WIN_USER ansible_password=$WIN_PASS ansible_connection=winrm
-    wsl -e ls -l /mnt/c/git/%ROLE_NAME%
-    wsl -e ansible -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml -m win_ping -vvvv localhost
-    wsl -e mkdir -p $DEFAULT_ROLES_PATH
-    wsl -e cp -R /mnt/c/git/%ROLE_NAME% /etc/ansible/roles/%APPVEYOR_PROJECT_NAME%
+- cmd: wsl -e uname -a
+- cmd: wsl -e python3 -m pip install --upgrade pip
+- cmd: wsl -e python3 -m pip install pywinrm
+- cmd: wsl -e python3 -m pip install ansible==%ANSIBLE_VERSION%
+- cmd: wsl -e ansible --version
+- cmd: wsl -e echo localhost ansible_user=$WIN_USER ansible_password=$WIN_PASS ansible_connection=winrm
+- cmd: wsl -e ls -l /mnt/c/git/%ROLE_NAME%
+- cmd: wsl -e ansible -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml -m win_ping -vvvv localhost
+- cmd: wsl -e mkdir -p $DEFAULT_ROLES_PATH
+- cmd: wsl -e cp -R /mnt/c/git/%ROLE_NAME% /etc/ansible/roles/%APPVEYOR_PROJECT_NAME%
 
 build: off
 test_script:
