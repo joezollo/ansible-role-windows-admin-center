@@ -1,4 +1,6 @@
-version: 0.1.x.{build}
+version: 1.0.{build}
+image: Visual Studio 2019
+clone_folder: C:\git\ansible-role-windows-admin-center
 skip_commits:
   message: /^\(?doc|travis\)?.*/
 clone_depth: 10
@@ -9,61 +11,52 @@ init:
 
 environment:
   ROLE_NAME: ansible-role-windows-admin-center
-  winrm_user: ansible-ci
-  winrm_password: Passw0rd!1
+  WIN_USER: ciuser
+  WIN_PASS: Passw0rd!1
   APPVEYOR_RDP_PASSWORD: Passw0rd!1
+  DEFAULT_ROLES_PATH: /etc/ansible/roles
 
   matrix:
-  - ANSIBLE_VERSION: "2.9.2"
+  - ANSIBLE_VERSION: "2.9.5"
     ANSIBLE_EXTRA_VARS:
-  - ANSIBLE_VERSION: "2.8.7"
-    ANSIBLE_EXTRA_VARS:
-  - ANSIBLE_VERSION: "2.7.15"
-    ANSIBLE_EXTRA_VARS:
+  # - ANSIBLE_VERSION: "2.8.8"
+  #   ANSIBLE_EXTRA_VARS:
+  # - ANSIBLE_VERSION: "2.7.16"
+  #   ANSIBLE_EXTRA_VARS:
 matrix:
   fast_finish: true
 
 install:
 - ps: >-
-    net user /Y /add $env:winrm_user $env:winrm_password
-    net localgroup administrators $env:winrm_user /add
+    net user /Y /add $env:WIN_USER $env:WIN_PASS
+    net localgroup administrators $env:WIN_USER /add
     $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
     $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
     (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
     powershell.exe -ExecutionPolicy ByPass -File $file
+    winrm quickconfig
+    winrm quickconfig -transport:https
+    winrm enumerate winrm/config/Listener
 - cmd: >-
     wsl -e uname -a
-    wsl -e python -m ensurepip
-    wsl -e python3 -m ensurepip
     wsl -e python3 -m pip install --upgrade pip
     wsl -e python3 -m pip install pywinrm
     wsl -e python3 -m pip install ansible==%ANSIBLE_VERSION%
     wsl -e ansible --version
-    wsl -e echo localhost ansible_user=$winrm_user ansible_password=$winrm_password ansible_connection=winrm
-    wsl -e ls /
-    wsl -e ls -l /mnt/c/
+    wsl -e echo localhost ansible_user=$WIN_USER ansible_password=$WIN_PASS ansible_connection=winrm
     wsl -e ls -l /mnt/c/git/%ROLE_NAME%
-    wsl -e pwd
-    wsl -e ansible -i /mnt/c/git/%ROLE_NAME%/tests/inventory.yml -m win_ping -vvv localhost
-    wsl -e mkdir -p /etc/ansible/roles
+    wsl -e ansible -i /mnt/c/git/%ROLE_NAME%/tests/appveyor/inventory.yml -m win_ping -vvvv localhost
+    wsl -e mkdir -p $DEFAULT_ROLES_PATH
     wsl -e cp -R /mnt/c/git/%ROLE_NAME% /etc/ansible/roles/%ROLE_NAME%
 
 build: off
 test_script:
-- cmd: "wsl -e ansible-playbook -i /mnt/c/git/%ROLE_NAME%/tests/inventory.yml /mnt/c/git/%ROLE_NAME%/test/appveyor/playbook.yml -vvv $ANSIBLE_EXTRA_VARS"
-
-for:
-  - matrix:
-      only:
-        - SUITE: default
-    after_test:
-    - cmd: |
-        wsl -e ansible-playbook -i /mnt/c/git/%ROLE_NAME%/tests/inventory.yml /mnt/c/git/%ROLE_NAME%/test/integration/$SUITE/default.yml $ANSIBLE_EXTRA_VARS
+- cmd: "wsl -e ansible-playbook -i /mnt/c/git/%ROLE_NAME%/tests/appveyor/inventory.yml /mnt/c/git/%ROLE_NAME%/test/appveyor/playbook.yml -vvv $ANSIBLE_EXTRA_VARS"
 
 notifications:
 - provider: Email
   to:
-  - nobody@nowhere.com
-  on_build_success: false
-  on_build_failure: false
-  on_build_status_changed: false
+  - joe@zollo.net
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true

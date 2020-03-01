@@ -1,9 +1,0 @@
----
-all:
-  hosts:
-    zollo-test1:
-      ansible_connection: ssh
-      ansible_host: 192.268.300.200
-      ansible_shell_type: powershell
-      ansible_user: Administrator
-      ansible_password: password

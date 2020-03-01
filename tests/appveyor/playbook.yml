@@ -1,5 +1,7 @@
 ---
 - hosts: all
+  vars: 
+    wac_sme_port: 14443
   tasks:
   roles:
     - role: "ansible-role-windows-admin-center"
