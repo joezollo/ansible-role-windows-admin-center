@@ -2,6 +2,4 @@
 all:
   hosts:
     test_host:
-      ansible_connection: winrm
       ansible_host: 127.0.0.1
-      ansible_winrm_server_cert_validation: ignore

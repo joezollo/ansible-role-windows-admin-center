@@ -13,11 +13,10 @@ environment:
   WIN_PASS: Passw0rd!1
   DEBIAN_FRONTEND: noninteractive
   APPVEYOR_RDP_PASSWORD: Passw0rd!1
-  DEFAULT_ROLES_PATH: /etc/ansible/roles
 
   matrix:
   - ANSIBLE_VERSION: "2.9.5"
-    ANSIBLE_EXTRA_VARS: -e "ansible_user=%WIN_USER% ansible_password=%WIN_PASS% ansible_connection=winrm role_path=/mnt/c/git/%APPVEYOR_PROJECT_NAME%"
+    ANSIBLE_EXTRA_VARS: -e "ansible_user=%WIN_USER% ansible_password=%WIN_PASS% ansible_shell_type=cmd ansible_connection=ssh role_path=/mnt/c/git/%APPVEYOR_PROJECT_NAME%"
   # - ANSIBLE_VERSION: "2.8.8"
   #   ANSIBLE_EXTRA_VARS:
   # - ANSIBLE_VERSION: "2.7.16"
@@ -30,13 +29,16 @@ install:
 - ps: net user /Y /add $env:WIN_USER $env:WIN_PASS
 - ps: net localgroup administrators $env:WIN_USER /add
 
+# install openssh for windows
+- cmd: choco install openssh -params '"/SSHServerFeature"'
+
 # configure winrm for ansible
 - ps: $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
 - ps: $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
 - ps: "(New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)"
 - ps: powershell.exe -ExecutionPolicy ByPass -File $file
 
-# install ansible and python prereqs in wsl
+# install ansible and python prereqs in wsl/ubuntu
 - cmd: wsl -e uname -a
 - cmd: wsl -e sudo DEBIAN_FRONTEND=noninteractive apt update
 - cmd: wsl -e sudo DEBIAN_FRONTEND=noninteractive apt install python3-setuptools python3-pip -y --no-install-recommends
@@ -47,13 +49,15 @@ install:
     wsl -e echo "Role Path: /mnt/c/git/%APPVEYOR_PROJECT_NAME%"
 
 build: off
+
+# execute the test playbook from wsl
 test_script:
-- cmd: "wsl -e ansible-playbook -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/playbook.yml -vvv %ANSIBLE_EXTRA_VARS%"
+- cmd: wsl -e ansible-playbook -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/playbook.yml -vvv %ANSIBLE_EXTRA_VARS%
 
 notifications:
 - provider: Email
   to:
   - joe@zollo.net
-  on_build_success: true
+  on_build_success: false
   on_build_failure: true
   on_build_status_changed: true
