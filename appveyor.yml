@@ -53,7 +53,7 @@ build: off
 # execute the test playbook from wsl
 test_script:
 - cmd: >-
-    wsl -e ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/playbook.yml -vvv %ANSIBLE_EXTRA_VARS%
+    wsl -e ansible-playbook -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/playbook.yml -vvv %ANSIBLE_EXTRA_VARS%
 
 notifications:
 - provider: Email
