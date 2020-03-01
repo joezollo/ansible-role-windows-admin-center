@@ -26,13 +26,17 @@ matrix:
   fast_finish: true
 
 install:
+# setup local user for ci
 - ps: net user /Y /add $env:WIN_USER $env:WIN_PASS
 - ps: net localgroup administrators $env:WIN_USER /add
-- ps: >-
-    $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
-    $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
-    (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
-    powershell.exe -ExecutionPolicy ByPass -File $file
+
+# configure winrm for ansible
+- ps: $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+- ps: $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
+- ps: "(New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)"
+- ps: powershell.exe -ExecutionPolicy ByPass -File $file
+
+# additional configuration for winrm
 - cmd: winrm quickconfig
 - cmd: winrm quickconfig -transport:https
 - cmd: winrm enumerate winrm/config/Listener
