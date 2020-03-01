@@ -1,0 +1,5 @@
+---
+- hosts: all
+  tasks:
+  roles:
+    - role: "ansible-role-windows-admin-center"
