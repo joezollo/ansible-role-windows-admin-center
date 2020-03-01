@@ -36,10 +36,7 @@ install:
 - ps: "(New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)"
 - ps: powershell.exe -ExecutionPolicy ByPass -File $file
 
-# additional configuration for winrm
-- cmd: winrm quickconfig
-- cmd: winrm quickconfig -transport:https
-- cmd: winrm enumerate winrm/config/Listener
+# install ansible and python prereqs in wsl
 - cmd: wsl -e uname -a
 - cmd: wsl -e python3 -m pip install --upgrade pip
 - cmd: wsl -e python3 -m pip install pywinrm
