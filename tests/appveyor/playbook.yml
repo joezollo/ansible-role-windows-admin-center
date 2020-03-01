@@ -4,4 +4,4 @@
   vars:
     wac_sme_port: 14443
   roles:
-    - role: "ansible-role-windows-admin-center"
+    - role: "{{ role_path }}"

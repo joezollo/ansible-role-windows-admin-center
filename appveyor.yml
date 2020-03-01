@@ -17,7 +17,7 @@ environment:
 
   matrix:
   - ANSIBLE_VERSION: "2.9.5"
-    ANSIBLE_EXTRA_VARS: -e "ansible_user=%WIN_USER% ansible_password=%WIN_PASS% ansible_connection=winrm"
+    ANSIBLE_EXTRA_VARS: -e "ansible_user=%WIN_USER% ansible_password=%WIN_PASS% ansible_connection=winrm role_path=/mnt/c/git/%APPVEYOR_PROJECT_NAME%"
   # - ANSIBLE_VERSION: "2.8.8"
   #   ANSIBLE_EXTRA_VARS:
   # - ANSIBLE_VERSION: "2.7.16"
@@ -43,13 +43,8 @@ install:
 - cmd: wsl -e sudo -H python3 -m pip install --upgrade pip
 - cmd: wsl -e sudo -H python3 -m pip install pywinrm
 - cmd: wsl -e sudo -H pip install ansible==%ANSIBLE_VERSION%
-- cmd: wsl -e ls -l /usr/local/bin/
-- cmd: wsl -e ls -l /mnt/c/git/%APPVEYOR_PROJECT_NAME%
-- cmd: wsl -e sudo mkdir -p %DEFAULT_ROLES_PATH%/%APPVEYOR_PROJECT_NAME%
-- cmd: wsl -e ls -l %DEFAULT_ROLES_PATH%/%APPVEYOR_PROJECT_NAME%
-- cmd: wsl -e sudo cp -R /mnt/c/git/%APPVEYOR_PROJECT_NAME%/ %DEFAULT_ROLES_PATH%/%APPVEYOR_PROJECT_NAME%
 - cmd: >-
-    wsl -e echo "Role Path: %DEFAULT_ROLES_PATH%/%APPVEYOR_PROJECT_NAME%"
+    wsl -e echo "Role Path: /mnt/c/git/%APPVEYOR_PROJECT_NAME%"
 
 build: off
 test_script:
