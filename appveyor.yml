@@ -45,8 +45,8 @@ install:
 - cmd: wsl -e sudo -H pip install ansible==%ANSIBLE_VERSION%
 - cmd: wsl -e ls -l /usr/local/bin/
 - cmd: wsl -e ls -l /mnt/c/git/%APPVEYOR_PROJECT_NAME%
-- cmd: wsl -e sudo mkdir -p $DEFAULT_ROLES_PATH/%APPVEYOR_PROJECT_NAME%
-- cmd: wsl -e sudo cp -R /mnt/c/git/%ROLE_NAME% %DEFAULT_ROLES_PATH%/%APPVEYOR_PROJECT_NAME%
+- cmd: wsl -e sudo mkdir -p %DEFAULT_ROLES_PATH%/%APPVEYOR_PROJECT_NAME%
+- cmd: wsl -e sudo cp -R /mnt/c/git/%APPVEYOR_PROJECT_NAME% %DEFAULT_ROLES_PATH%/%APPVEYOR_PROJECT_NAME%
 
 build: off
 test_script:
