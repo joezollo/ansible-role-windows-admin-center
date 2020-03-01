@@ -27,16 +27,16 @@ matrix:
   fast_finish: true
 
 install:
+- cmd: net user /Y /add $env:WIN_USER $env:WIN_PASS
+- cmd: net localgroup administrators $env:WIN_USER /add
 - ps: >-
-    net user /Y /add $env:WIN_USER $env:WIN_PASS
-    net localgroup administrators $env:WIN_USER /add
     $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
     $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
     (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
     powershell.exe -ExecutionPolicy ByPass -File $file
-    winrm quickconfig
-    winrm quickconfig -transport:https
-    winrm enumerate winrm/config/Listener
+- cmd: winrm quickconfig
+- cmd: winrm quickconfig -transport:https
+- cmd: winrm enumerate winrm/config/Listener
 - cmd: >-
     wsl -e uname -a
     wsl -e python3 -m pip install --upgrade pip
@@ -45,9 +45,9 @@ install:
     wsl -e ansible --version
     wsl -e echo localhost ansible_user=$WIN_USER ansible_password=$WIN_PASS ansible_connection=winrm
     wsl -e ls -l /mnt/c/git/%ROLE_NAME%
-    wsl -e ansible -i /mnt/c/git/%ROLE_NAME%/tests/appveyor/inventory.yml -m win_ping -vvvv localhost
+    wsl -e ansible -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml -m win_ping -vvvv localhost
     wsl -e mkdir -p $DEFAULT_ROLES_PATH
-    wsl -e cp -R /mnt/c/git/%ROLE_NAME% /etc/ansible/roles/%ROLE_NAME%
+    wsl -e cp -R /mnt/c/git/%ROLE_NAME% /etc/ansible/roles/%APPVEYOR_PROJECT_NAME%
 
 build: off
 test_script:
