@@ -38,7 +38,8 @@ install:
 
 # install ansible and python prereqs in wsl
 - cmd: wsl -e uname -a
-- cmd: wsl -e sudo apt install python3-pip -y
+- cmd: wsl -e sudo apt update
+- cmd: wsl -e sudo apt install python3-pip -y --no-install-recommends
 - cmd: wsl -e python3 -m pip install --upgrade pip
 - cmd: wsl -e python3 -m pip install pywinrm
 - cmd: wsl -e python3 -m pip install ansible==%ANSIBLE_VERSION%
