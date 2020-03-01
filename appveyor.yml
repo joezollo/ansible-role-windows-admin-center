@@ -18,7 +18,7 @@ environment:
 
   matrix:
   - ANSIBLE_VERSION: "2.9.5"
-    ANSIBLE_EXTRA_VARS:
+    ANSIBLE_EXTRA_VARS: "-e 'ansible_user=$WIN_USER ansible_password=$WIN_PASS ansible_connection=winrm'"
   # - ANSIBLE_VERSION: "2.8.8"
   #   ANSIBLE_EXTRA_VARS:
   # - ANSIBLE_VERSION: "2.7.16"
@@ -47,7 +47,7 @@ install:
 - cmd: wsl -e ls -l /usr/local/bin/
 - cmd: wsl -e echo localhost ansible_user=$WIN_USER ansible_password=$WIN_PASS ansible_connection=winrm
 - cmd: wsl -e ls -l /mnt/c/git/%ROLE_NAME%
-- cmd: wsl -e ansible -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml -m win_ping -vvvv localhost
+- cmd: wsl -e ansible -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml -m win_ping -vvvv localhost $ANSIBLE_EXTRA_VARS
 - cmd: wsl -e sudo mkdir -p $DEFAULT_ROLES_PATH
 - cmd: wsl -e sudo cp -R /mnt/c/git/%ROLE_NAME% /etc/ansible/roles/%APPVEYOR_PROJECT_NAME%
 
