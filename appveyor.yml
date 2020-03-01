@@ -12,6 +12,7 @@ environment:
   ROLE_NAME: ansible-role-windows-admin-center
   WIN_USER: ciuser
   WIN_PASS: Passw0rd!1
+  DEBIAN_FRONTEND: noninteractive
   APPVEYOR_RDP_PASSWORD: Passw0rd!1
   DEFAULT_ROLES_PATH: /etc/ansible/roles
 
