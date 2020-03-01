@@ -50,7 +50,7 @@ install:
 
 build: off
 test_script:
-- cmd: "wsl -e ansible-playbook -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml /mnt/c/git/%ROLE_NAME%/test/appveyor/playbook.yml -vvv $ANSIBLE_EXTRA_VARS"
+- cmd: "wsl -e ansible-playbook -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml /mnt/c/git/%ROLE_NAME%/test/appveyor/playbook.yml -vvv %ANSIBLE_EXTRA_VARS%"
 
 notifications:
 - provider: Email
