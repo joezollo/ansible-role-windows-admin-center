@@ -47,10 +47,12 @@ install:
 - cmd: wsl -e ls -l /mnt/c/git/%APPVEYOR_PROJECT_NAME%
 - cmd: wsl -e sudo mkdir -p %DEFAULT_ROLES_PATH%/%APPVEYOR_PROJECT_NAME%
 - cmd: wsl -e sudo cp -R /mnt/c/git/%APPVEYOR_PROJECT_NAME% %DEFAULT_ROLES_PATH%/%APPVEYOR_PROJECT_NAME%
+- cmd: >-
+    wsl -e echo "Role Path: %DEFAULT_ROLES_PATH%/%APPVEYOR_PROJECT_NAME%"
 
 build: off
 test_script:
-- cmd: "wsl -e ansible-playbook -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml /mnt/c/git/%ROLE_NAME%/test/appveyor/playbook.yml -vvv %ANSIBLE_EXTRA_VARS%"
+- cmd: "wsl -e ansible-playbook -i /mnt/c/git/%APPVEYOR_PROJECT_NAME%/tests/appveyor/inventory.yml /mnt/c/git/%APPVEYOR_PROJECT_NAME%/test/appveyor/playbook.yml -vvv %ANSIBLE_EXTRA_VARS%"
 
 notifications:
 - provider: Email
