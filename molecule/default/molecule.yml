@@ -25,7 +25,7 @@ platforms:
   snapshot_src: base
   cluster: Cluster-1
   memory_mb: 8192
-  cpus: 8
+  cpus: 4
   datastore: WorkloadDatastore
   network:
     - name: mgmt
@@ -40,7 +40,7 @@ platforms:
   snapshot_src: base
   cluster: Cluster-1
   memory_mb: 8192
-  cpus: 8
+  cpus: 4
   datastore: WorkloadDatastore
   network:
     - name: mgmt
