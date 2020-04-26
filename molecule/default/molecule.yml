@@ -20,7 +20,7 @@ lint: |
   yamllint .
   ansible-lint
 platforms:
-- name: "ci-${GIT_COMMIT}"
+- name: "c1-${GIT_COMMIT}"
   template: ci-w2016
   snapshot_src: base
   cluster: Cluster-1
@@ -35,7 +35,7 @@ platforms:
       dns_servers:
       - 8.8.8.8
       - 8.8.4.4
-- name: "ci-${GIT_COMMIT}"
+- name: "c2-${GIT_COMMIT}"
   template: ci-w2019
   snapshot_src: base
   cluster: Cluster-1

@@ -17,7 +17,7 @@ pipeline {
                 sh '''
                     virtualenv ci-venv
                     . ./ci-venv/bin/activate
-                    pip install --upgrade ansible molecule docker pyvmomi requests pywinrm pycurl pyOpenSSL
+                    pip install --upgrade ansible ansible-lint yamllint molecule docker pyvmomi requests pywinrm pycurl pyOpenSSL
                 '''
             }
         }
@@ -28,6 +28,7 @@ pipeline {
                     . ./ci-venv/bin/activate
                     python -V
                     ansible --version
+                    ansible-lint --version
                     molecule --version
                 '''
             }
