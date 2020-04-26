@@ -1,0 +1,84 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+  hostname: ${VCENTER_HOST}
+  username: ${VCENTER_USR}
+  password: ${VCENTER_PSW}
+  validate_certs: true
+  datacenter: SDDC-Datacenter
+  folder: /CI/
+  vm_username: ciadmin
+  vm_password: awvmware331!
+  connection: winrm
+  port: 5986
+  winrm_transport: ntlm
+  winrm_server_cert_validation: ignore
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+- name: "ci-${GIT_COMMIT}"
+  template: ci-w2016
+  snapshot_src: base
+  cluster: Cluster-1
+  memory_mb: 8192
+  cpus: 8
+  datastore: WorkloadDatastore
+  network:
+    - name: mgmt
+      ip: 10.139.5.231
+      netmask: 255.255.255.0
+      gateway: 10.139.5.1
+      dns_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+- name: "ci-${GIT_COMMIT}"
+  template: ci-w2019
+  snapshot_src: base
+  cluster: Cluster-1
+  memory_mb: 8192
+  cpus: 8
+  datastore: WorkloadDatastore
+  network:
+    - name: mgmt
+      ip: 10.139.5.231
+      netmask: 255.255.255.0
+      gateway: 10.139.5.1
+      dns_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  log: true
+  ansible_args:
+    - -vvvv
+  playbooks:
+    create: create.yml
+    prepare: prepare.yml
+    converge: playbook.yml
+    destroy: destroy.yml
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+scenario:
+  name: default
+  test_sequence:
+    # - lint
+    - dependency
+    # - cleanup
+    # - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    # - idempotence
+    # - side_effect
+    # - verify
+    # - cleanup
+    - destroy

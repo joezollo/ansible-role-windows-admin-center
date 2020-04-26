@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    ansible_user: Administrator
+  tasks:
+  - name: Create CI User
+    win_user:
+      name: molecule
+      password: "{{ ansible_password }}"
+      state: present
+      groups: Administrators
+
+  - name: Create CI User Profile
+    win_user_profile:
+      name: molecule
+      username: molecule
