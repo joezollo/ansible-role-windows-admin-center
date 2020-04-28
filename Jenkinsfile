@@ -20,7 +20,7 @@ pipeline {
                     source ci-venv/bin/activate
                     python3 -m pip install --upgrade pip
                     python3 -m pip install --upgrade ansible molecule docker
-                    python3 -m pip install --upgrade testinfra pyvmomi requests pywinrm pycurl pyOpenSSL ansible-lint yamllint
+                    python3 -m pip install --upgrade testinfra pyvmomi pyvim requests pywinrm pycurl pyOpenSSL ansible-lint yamllint
                 '''
             }
         }
@@ -29,9 +29,8 @@ pipeline {
             steps {
                 sh '''
                     source ci-venv/bin/activate
-                    python -v
+                    python -V
                     ansible --version
-                    molecule --version
                 '''
             }
         }
