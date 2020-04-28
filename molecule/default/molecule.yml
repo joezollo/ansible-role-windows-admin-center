@@ -15,10 +15,6 @@ driver:
   port: 5986
   winrm_transport: ntlm
   winrm_server_cert_validation: ignore
-lint: | 
-  set -e
-  yamllint .
-  ansible-lint
 platforms:
 - name: "c1-${GIT_COMMIT}"
   template: ci-w2016
