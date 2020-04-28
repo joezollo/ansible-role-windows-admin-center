@@ -17,22 +17,29 @@ pipeline {
                 sh '''
                     virtualenv ci-venv
                     . ./ci-venv/bin/activate
-                    pip install --upgrade ansible ansible-lint yamllint molecule docker pyvmomi requests pywinrm pycurl pyOpenSSL
+                    pip install --upgrade ansible ansible-lint yamllint molecule testinfra docker pyvmomi requests pywinrm pycurl pyOpenSSL
                 '''
             }
         }
 
         stage ('Output Diagnostic Information') {
             steps {
-                sh '''
-                    . ./ci-venv/bin/activate
-                    python -V
-                    ansible --version
-                    ansible-lint --version
-                    molecule --version
-                '''
+                sh "Diagnostics!"
             }
         }
+
+/*
+
+sh '''
+    . ./ci-venv/bin/activate
+    python -V
+    ansible --version
+    ansible-lint --version
+    molecule --version
+'''
+
+*/
+
 
         stage ('Execute Molecule Tests') {
             steps {
