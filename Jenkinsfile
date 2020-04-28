@@ -22,12 +22,6 @@ pipeline {
             }
         }
 
-        stage ('Output Diagnostic Information') {
-            steps {
-                sh "Diagnostics!"
-            }
-        }
-
 /*
 
 sh '''
