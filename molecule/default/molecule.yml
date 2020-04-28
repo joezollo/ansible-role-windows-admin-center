@@ -73,7 +73,7 @@ scenario:
     - dependency
     # - cleanup
     # - destroy
-    # - syntax
+    - syntax
     - create
     - prepare
     - converge

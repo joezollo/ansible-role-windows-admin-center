@@ -39,7 +39,7 @@ sh '''
             steps {
                 sh '''
                     . ./ci-venv/bin/activate
-                    molecule test
+                    molecule --debug test
                 '''
             }
         }
