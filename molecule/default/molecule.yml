@@ -3,9 +3,9 @@ dependency:
   name: galaxy
 driver:
   name: delegated
-  hostname: ${VCENTER_HOST}
-  username: ${VCENTER_USR}
-  password: ${VCENTER_PSW}
+  hostname: "${VCENTER_HOST}"
+  username: "${VCENTER_USR}"
+  password: "${VCENTER_PSW}"
   validate_certs: true
   datacenter: SDDC-Datacenter
   folder: /CI/
@@ -20,21 +20,6 @@ lint: |
   yamllint .
   ansible-lint
 platforms:
-- name: "c1-${GIT_COMMIT}"
-  template: ci-w2016
-  snapshot_src: base
-  cluster: Cluster-1
-  memory_mb: 8192
-  cpus: 4
-  datastore: WorkloadDatastore
-  network:
-    - name: mgmt
-      ip: 10.139.5.231
-      netmask: 255.255.255.0
-      gateway: 10.139.5.1
-      dns_servers:
-      - 8.8.8.8
-      - 8.8.4.4
 - name: "c2-${GIT_COMMIT}"
   template: ci-w2019
   snapshot_src: base
