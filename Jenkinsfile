@@ -17,7 +17,7 @@ pipeline {
                 sh '''
                     virtualenv ci-venv
                     . ./ci-venv/bin/activate
-                    pip install --upgrade ansible ansible-lint yamllint molecule testinfra docker pyvmomi requests pywinrm pycurl pyOpenSSL
+                    pip3 install --upgrade  ansible ansible-lint yamllint molecule testinfra docker pyvmomi requests pywinrm pycurl pyOpenSSL
                 '''
             }
         }
@@ -39,7 +39,7 @@ sh '''
             steps {
                 sh '''
                     . ./ci-venv/bin/activate
-                    molecule test --all
+                    molecule test
                 '''
             }
         }
