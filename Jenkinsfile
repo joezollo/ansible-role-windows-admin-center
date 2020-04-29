@@ -23,7 +23,7 @@ pipeline {
                 sh '''
                     echo "${VCENTER}"
                     docker -v
-                    python -V
+                    python3 -V
                     ansible --version
                     molecule --version
                 '''
