@@ -21,9 +21,6 @@ pipeline {
         stage ('Display Debug Info') {
             steps {
                 sh '''
-                    echo "${VCENTER}"
-                    docker -v
-                    python3 -V
                     ansible --version
                     molecule --version
                 '''
@@ -40,10 +37,7 @@ pipeline {
 
         stage ('Molecule Test') {
             steps {
-                sh '''
-                    pwd
-                    molecule test --all
-                '''
+                sh "molecule test --all"
             }
         }
 
