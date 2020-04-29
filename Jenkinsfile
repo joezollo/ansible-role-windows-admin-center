@@ -42,7 +42,7 @@ pipeline {
         stage ('Molecule Test') {
             steps {
                 sh '''
-                    cd /role
+                    pwd
                     molecule test --all
                 '''
             }
