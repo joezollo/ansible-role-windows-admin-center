@@ -15,7 +15,7 @@ pipeline {
         stage ('Setup Virtual Environments') {
             steps {
                 sh '''
-                    python3 -m pip installvirtualenv
+                    python3 -m pip install virtualenv
                     virtualenv ci-ansible-current
                     . ./ci-ansible-current/bin/activate
                     python3 -m pip install --upgrade pip
