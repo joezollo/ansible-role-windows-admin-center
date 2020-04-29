@@ -32,7 +32,8 @@ pipeline {
 
         stage ('Install Prerequisites') {
             steps {
-                sh "python3 -m pip install --upgrade ansible testinfra pyvmomi requests pycurl pyOpenSSL ansible-lint yamllint"
+                sh "pip install --upgrade setuptools"
+                sh "pip install --upgrade ansible testinfra pyvmomi requests pycurl pyOpenSSL ansible-lint yamllint"
             }
         }
 
