@@ -32,7 +32,7 @@ pipeline {
 
         stage ('Install Prerequisites') {
             steps {
-                sh "yum install libcurl-devel"
+                sh "apk install curl-devel"
                 sh "pip install --upgrade pip"
                 sh "pip install --upgrade setuptools"
                 sh "pip install --upgrade ansible testinfra pyvmomi requests pycurl pyOpenSSL ansible-lint yamllint"
