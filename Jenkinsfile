@@ -18,7 +18,7 @@ pipeline {
 
     stages {
 
-        stage ('Display Versions') {
+        stage ('Display Debug Info') {
             steps {
                 sh '''
                     echo "${VCENTER}"
