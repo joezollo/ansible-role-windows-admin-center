@@ -16,8 +16,8 @@ pipeline {
             steps {
                 sh '''
                     pip3.6 install virtualenv
-                    virtualenv ci-venv
-                    source ${WORKSPACE}/ci-venv/bin/activate
+                    virtualenv ci-ansible-current
+                    . ./ci-ansible-current/bin/activate
                     python3 -m pip install --upgrade pip
                     python3 -m pip install --upgrade ansible molecule docker
                     python3 -m pip install --upgrade testinfra pyvmomi pyvim requests pywinrm pycurl pyOpenSSL ansible-lint yamllint
@@ -28,7 +28,7 @@ pipeline {
         stage ('Diagnostic Information') {
             steps {
                 sh '''
-                    source ${WORKSPACE}/ci-venv/bin/activate
+                    . ./ci-ansible-current/bin/activate
                     python -V
                     ansible --version
                 '''
@@ -38,7 +38,7 @@ pipeline {
         stage ('Execute Molecule Tests') {
             steps {
                 sh '''
-                    source ${WORKSPACE}/ci-venv/bin/activate
+                    . ./ci-ansible-current/bin/activate
                     molecule --debug test
                 '''
             }
