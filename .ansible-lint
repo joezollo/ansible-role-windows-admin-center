@@ -1,0 +1,6 @@
+exclude_paths:
+ - ./molecule/
+ - ./ci-venv/
+skip_list:
+  - '602'
+  - '401'
