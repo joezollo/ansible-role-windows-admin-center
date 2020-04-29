@@ -32,7 +32,7 @@ pipeline {
 
         stage ('Install Prerequisites') {
             steps {
-                sh "sudo python3 -m pip install --upgrade testinfra pyvmomi requests pycurl pyOpenSSL ansible-lint yamllint"
+                sh "python3 -m pip install --upgrade ansible testinfra pyvmomi requests pycurl pyOpenSSL ansible-lint yamllint"
             }
         }
 
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 sh '''
                     cd /role
-                    sudo molecule test --all
+                    molecule test --all
                 '''
             }
         }
