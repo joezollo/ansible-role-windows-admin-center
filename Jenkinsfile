@@ -6,7 +6,7 @@ pipeline {
 
     agent {
         docker {
-            image 'quay.io/ansible/molecule'
+            image 'quay.io/ansible/molecule:3.0.3'
             args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}:/role'
         }
     }
@@ -32,7 +32,7 @@ pipeline {
 
         stage ('Install Prerequisites') {
             steps {
-                sh "apk add --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ curl-devel"
+                sh "apk add --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ libcurl-devel"
                 sh "pip install --upgrade pip"
                 sh "pip install --upgrade setuptools"
                 sh "pip install --upgrade ansible testinfra pyvmomi requests pycurl pyOpenSSL ansible-lint yamllint"
