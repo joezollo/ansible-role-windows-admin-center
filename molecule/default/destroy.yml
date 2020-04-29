@@ -21,7 +21,7 @@
       validate_certs: "{{ molecule_yml.driver.validate_certs | default(false) }}"
       datacenter: "{{ molecule_yml.driver.datacenter }}"
       folder: "{{ molecule_yml.driver.folder }}"
-      name: "{{ item.name[0:14] }}"
+      name: "{{ item.name[0:10] }}"
     register: vm_result
     loop: "{{ molecule_yml.platforms }}"
     loop_control:
