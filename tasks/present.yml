@@ -8,20 +8,12 @@
 
 - name: Set Appropriate Facts
   set_fact:
-    wac_args:
-      - SME_PORT={{ wac_sme_port }}
-      - SSL_CERTIFICATE_OPTION={{ wac_ssl_certificate_option }}
-      - RESTART_WINRM=0
+    wac_args: >
+      SME_PORT={{ wac_sme_port }}
+      SSL_CERTIFICATE_OPTION={{ wac_ssl_certificate_option }}
+      {{ (wac_ssl_certificate_option == "installed") | ternary('SME_THUMBPRINT=' + wac_sme_thumbprint,'') }}
+      RESTART_WINRM=0
   when: wac_ssl_certificate_option == "generate"
-
-- name: Set Appropriate Facts
-  set_fact:
-    wac_args:
-      - SME_PORT={{ wac_sme_port }}
-      - SSL_CERTIFICATE_OPTION={{ wac_ssl_certificate_option }}
-      - SME_THUMBPRINT={{ wac_sme_thumbprint }}
-      - RESTART_WINRM=0
-  when: wac_ssl_certificate_option == "installed"
 
 - name: Install WAC with Selected Options
   win_package:
