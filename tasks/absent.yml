@@ -1,3 +1,4 @@
+---
 - name: Uninstall WAC
   win_package:
     path: "{{ wac_local_install_path }}"
@@ -7,7 +8,7 @@
 
 - name: Restart Server
   win_reboot:
-      msg: Rebooting to Complete Windows Admin Center Installation
+    msg: Rebooting to Complete Windows Admin Center Installation
   when: wac_uninstall.reboot_required == true
 
 - name:

@@ -1,7 +1,0 @@
----
-- name: Role Test
-  hosts: test_host
-  vars:
-    wac_sme_port: 14443
-  roles:
-    - role: "{{ role_path }}"

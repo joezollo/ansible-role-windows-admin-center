@@ -15,26 +15,26 @@ driver:
   port: 5986
   winrm_transport: ntlm
   winrm_server_cert_validation: ignore
-lint: | 
+lint: |
   set -e
   yamllint .
   ansible-lint
 platforms:
-- name: "c2-${GIT_COMMIT}"
-  template: ci-w2019
-  snapshot_src: base
-  cluster: Cluster-1
-  memory_mb: 8192
-  cpus: 4
-  datastore: WorkloadDatastore
-  network:
-    - name: mgmt
-      ip: 10.139.5.231
-      netmask: 255.255.255.0
-      gateway: 10.139.5.1
-      dns_servers:
-      - 8.8.8.8
-      - 8.8.4.4
+  - name: "c2-${GIT_COMMIT}"
+    template: ci-w2019
+    snapshot_src: base
+    cluster: Cluster-1
+    memory_mb: 8192
+    cpus: 4
+    datastore: WorkloadDatastore
+    network:
+      - name: mgmt
+        ip: 10.139.5.231
+        netmask: 255.255.255.0
+        gateway: 10.139.5.1
+        dns_servers:
+        - 8.8.8.8
+        - 8.8.4.4
 provisioner:
   name: ansible
   lint:
@@ -54,7 +54,7 @@ verifier:
 scenario:
   name: default
   test_sequence:
-    - lint
+    #- lint
     - dependency
     - syntax
     - create
