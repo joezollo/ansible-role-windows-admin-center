@@ -3,8 +3,12 @@
  */
 
 pipeline {
-
-    agent any
+    agent {
+        docker {
+            image 'quay.io/ansible/molecule'
+            args '-v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}:/role'
+        }
+    }
 
     environment {
         VCENTER = credentials('ci-lab')
@@ -12,37 +16,33 @@ pipeline {
     }
 
     stages {
-        stage ('Setup Virtual Environments') {
-            steps {
-                sh '''
-                    python3 -m pip install virtualenv
-                    virtualenv ci-ansible-current
-                    . ./ci-ansible-current/bin/activate
-                    python3 -m pip install --upgrade pip
-                    python3 -m pip install --upgrade ansible molecule docker
-                    python3 -m pip install --upgrade testinfra pyvmomi requests pycurl pyOpenSSL ansible-lint yamllint
-                '''
-            }
-        }
 
-        stage ('Diagnostic Information') {
+        stage ('Display Versions') {
             steps {
                 sh '''
-                    . ./ci-ansible-current/bin/activate
+                    echo "${VCENTER}"
+                    docker -v
                     python -V
                     ansible --version
+                    molecule --version
                 '''
             }
         }
 
-        stage ('Execute Molecule Tests') {
+        stage ('Install Prerequisites') {
+            steps {
+                sh "sudo python3 -m pip install --upgrade testinfra pyvmomi requests pycurl pyOpenSSL ansible-lint yamllint"
+            }
+        }
+
+        stage ('Molecule Test') {
             steps {
                 sh '''
-                    . ./ci-ansible-current/bin/activate
-                    molecule --debug test
+                    cd /role
+                    sudo molecule test --all
                 '''
             }
         }
-  }
 
+    }
 }
