@@ -32,7 +32,6 @@ pipeline {
 
         stage ('Install Prerequisites') {
             steps {
-                //sh "apk add --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ curl-dev gcc build-base"
                 sh "pip install --upgrade pip"
                 sh "pip install --upgrade setuptools"
                 sh "pip install --upgrade ansible testinfra pyvmomi requests pyOpenSSL ansible-lint yamllint"

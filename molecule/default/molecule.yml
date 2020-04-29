@@ -9,7 +9,7 @@ driver:
   validate_certs: true
   datacenter: SDDC-Datacenter
   folder: /CI/
-  vm_username: ciadmin
+  vm_username: Administrator
   vm_password: awvmware331!
   connection: winrm
   port: 5986
@@ -54,16 +54,13 @@ verifier:
 scenario:
   name: default
   test_sequence:
-    # - lint
+    - lint
     - dependency
-    # - cleanup
-    # - destroy
     - syntax
     - create
     - prepare
     - converge
-    # - idempotence
-    # - side_effect
+    - idempotence
     # - verify
     # - cleanup
     - destroy

@@ -7,7 +7,7 @@
   - name: Create CI User
     win_user:
       name: molecule
-      password: "{{ ansible_password }}"
+      password: "{{ molecule_yml.driver.vm_password }}"
       state: present
       groups: Administrators
 
