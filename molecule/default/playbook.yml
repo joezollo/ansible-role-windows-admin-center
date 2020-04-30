@@ -1,9 +1,13 @@
 ---
 - name: Converge
   hosts: all
+  become: true
   vars:
     ansible_connection: ssh
+    ansible_user: Administrator
+    ansible_password: awvmware331!
     ansible_shell_type: powershell
     ansible_become_method: runas
+    ansible_become_user: Administrator
   roles:
     - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
