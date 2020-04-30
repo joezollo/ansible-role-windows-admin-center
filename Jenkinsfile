@@ -37,7 +37,7 @@ pipeline {
 
         stage ('Molecule Test') {
             steps {
-                sh "molecule test --all"
+                sh "molecule test --all --destroy=never"
             }
         }
 
