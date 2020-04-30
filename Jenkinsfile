@@ -31,7 +31,7 @@ pipeline {
             steps {
                 sh "pip install --upgrade pip"
                 sh "pip install --upgrade setuptools"
-                sh "pip install install pyvmomi==6.7.3"
+                sh "pip install pyvmomi==6.7.3"
             }
         }
 
