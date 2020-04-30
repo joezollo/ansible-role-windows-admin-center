@@ -52,7 +52,7 @@
     register: instance_config_dict
     when: server is changed
 
-  - name: Convert CI Instance Config to Dict
+  - name: Map CI Instance Config to Dict
     set_fact:
       instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
     when: server is changed

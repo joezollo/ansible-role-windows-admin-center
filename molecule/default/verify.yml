@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+  - name: Ensure Windows Admin Center is Present
+    win_service:
+      name: Windows Admin Center
+      state: started
+    register: service
+    failed_when: service.changed
