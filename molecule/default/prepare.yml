@@ -1,17 +1,14 @@
 ---
 - name: Converge
   hosts: all
-  vars:
-    ansible_user: Administrator
   tasks:
-  - name: Create CI User
+  - name: Ensure Firewall is Off
+    win_shell: |
+      Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+
+  - name: Create Molecule User
     win_user:
       name: molecule
       password: "{{ molecule_yml.driver.vm_password }}"
       state: present
       groups: Administrators
-
-  - name: Create CI User Profile
-    win_user_profile:
-      name: molecule
-      username: molecule

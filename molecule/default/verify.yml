@@ -6,5 +6,5 @@
     win_service:
       name: Windows Admin Center
       state: started
-    register: service
-    failed_when: service.changed
+    register: wac_svc_state
+    failed_when: wac_svc_state.changed

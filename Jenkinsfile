@@ -6,7 +6,7 @@ pipeline {
 
     agent {
         docker {
-            image 'quay.io/ansible/molecule:3.0.3'
+            image 'quay.io/ansible/molecule:3.0.4'
             args '--network host -u root:root -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}:/role'
         }
     }
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 sh "pip install --upgrade pip"
                 sh "pip install --upgrade setuptools"
-                sh "pip install --upgrade ansible testinfra pyvmomi pyOpenSSL"
+                sh "pip install install -r requirements.txt"
             }
         }
 

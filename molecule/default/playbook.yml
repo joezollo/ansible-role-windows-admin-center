@@ -1,5 +1,8 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    ansible_winrm_read_timeout_sec: 180
+    ansible_winrm_operation_timeout_sec: 180
   roles:
     - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
