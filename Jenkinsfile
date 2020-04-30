@@ -14,6 +14,7 @@ pipeline {
     environment {
         VCENTER = credentials('ci-lab')
         VCENTER_HOST = credentials('ci-lab-vc')
+        ANSIBLE_HOST_KEY_CHECKING = "False"
     }
 
     stages {
