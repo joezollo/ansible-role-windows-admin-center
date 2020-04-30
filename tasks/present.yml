@@ -10,7 +10,7 @@
   set_fact:
     wac_args_extra: "{{ (wac_ssl_certificate_option == 'installed') | ternary(' SME_THUMBPRINT=' + wac_sme_thumbprint,' ') }}"
 
-- name:
+- name: Debug WAC Args
   debug:
     msg: "ARGS: {{ wac_args }}{{ wac_args_extra | default('') }}"
 

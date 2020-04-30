@@ -6,19 +6,19 @@
     win_shell: | 
       Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
-  - name: Ensure the Default Shell is PowerShell
-    win_regedit:
-      path: HKLM:\SOFTWARE\OpenSSH
-      name: DefaultShell
-      data: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-      type: string
-      state: present
+  # - name: Ensure the Default Shell is PowerShell
+  #   win_regedit:
+  #     path: HKLM:\SOFTWARE\OpenSSH
+  #     name: DefaultShell
+  #     data: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+  #     type: string
+  #     state: present
 
-  - name: Ensure OpenSSH is installed
-    win_chocolatey:
-      name: openssh
-      package_params: /SSHServerFeature
-      state: present
+  # - name: Ensure OpenSSH is installed
+  #   win_chocolatey:
+  #     name: openssh
+  #     package_params: /SSHServerFeature
+  #     state: present
 
   # - name: Ensure CI user is present
   #   win_user:

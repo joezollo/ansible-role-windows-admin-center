@@ -21,7 +21,7 @@ lint: |
   ansible-lint
 platforms:
   - name: "c1-${GIT_COMMIT}"
-    template: ci-w2016
+    template: ci-win2016x
     snapshot_src: base
     cluster: Cluster-1
     memory_mb: 8192
@@ -36,7 +36,7 @@ platforms:
         - 8.8.8.8
         - 8.8.4.4
   - name: "c2-${GIT_COMMIT}"
-    template: ci-w2019
+    template: ci-win2019x
     snapshot_src: base
     cluster: Cluster-1
     memory_mb: 8192
