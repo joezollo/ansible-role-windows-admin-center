@@ -21,6 +21,7 @@
     expected_return_code: 0,3010
     arguments: "{{ wac_args }}{{ wac_args_extra | default('') }}"
     path: "{{ wac_download_path }}"
+    log_path: "{{ wac_log_path | default(omit) }}"
   register: wac_install
 
 - name: Restart Server

@@ -1,6 +1,7 @@
 ---
 wac_download_url: https://aka.ms/WACDownload
 wac_download_path: C:\\Windows\\Temp\\wac.msi
+wac_log_path: C:\Windows\Temp\wac-{{lookup('pipe', 'date +%Y%m%dT%H%M%S')}}.log
 wac_local_install_path: C:\\Program Files\\Windows Admin Center\\
 wac_server_hostname: "{{ inventory_hostname }}"
 wac_constrained_delegation_enabled: false
