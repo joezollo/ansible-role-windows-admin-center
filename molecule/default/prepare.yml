@@ -3,12 +3,17 @@
   hosts: all
   tasks:
   - name: Ensure Firewall is Off
-    win_shell: |
+    win_shell: | 
       Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
-  - name: Create Molecule User
+  - name: Ensure CI user is present
     win_user:
       name: molecule
       password: "{{ molecule_yml.driver.vm_password }}"
       state: present
       groups: Administrators
+
+  - name: Ensure CI user profile is populated
+    win_user_profile:
+      name: molecule
+      username: molecule
