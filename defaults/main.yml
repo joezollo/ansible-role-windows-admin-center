@@ -11,3 +11,4 @@ wac_sme_thumbprint: ""
 wac_sme_port: 8443
 wac_state: present
 wac_product_id: '{65E83844-8B8A-42ED-B78D-BA021BE4AE83}'
+wac_args: RESTART_WINRM=0 SME_PORT={{ wac_sme_port }} SSL_CERTIFICATE_OPTION={{ wac_ssl_certificate_option }}

@@ -8,19 +8,18 @@
 
 - name: Set Appropriate Facts
   set_fact:
-    wac_args: >
-      SME_PORT={{ wac_sme_port }}
-      SSL_CERTIFICATE_OPTION={{ wac_ssl_certificate_option }}
-      {{ (wac_ssl_certificate_option == "installed") | ternary('SME_THUMBPRINT=' + wac_sme_thumbprint,'') }}
-      RESTART_WINRM=0
-  when: wac_ssl_certificate_option == "generate"
+    wac_args_extra: "{{ (wac_ssl_certificate_option == 'installed') | ternary(' SME_THUMBPRINT=' + wac_sme_thumbprint,' ') }}"
+
+- name:
+  debug:
+    msg: "ARGS: {{ wac_args }}{{ wac_args_extra | default('') }}"
 
 - name: Install WAC with Selected Options
   win_package:
     creates_path: "{{ wac_local_install_path }}"
     creates_service: Windows Admin Center
     expected_return_code: 0,3010
-    arguments: "{{ wac_args }}"
+    arguments: "{{ wac_args }}{{ wac_args_extra | default('') }}"
     path: "{{ wac_download_path }}"
   register: wac_install
 
