@@ -37,9 +37,9 @@ provisioner:
   ansible_args:
     - -vvvv
   playbooks:
-    create: create.yml
+    create: ../create.yml
     converge: playbook.yml
-    destroy: destroy.yml
+    destroy: ../destroy.yml
 verifier:
   name: testinfra
   lint:

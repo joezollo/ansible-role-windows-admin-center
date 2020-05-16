@@ -59,6 +59,7 @@ pipeline {
 
         stage ('Molecule Test') {
             steps {
+                sh "ls -al"
                 sh "molecule test --all --destroy=never"
             }
         }
