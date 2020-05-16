@@ -7,10 +7,10 @@ driver:
   username: "${VCENTER_USR}"
   password: "${VCENTER_PSW}"
   validate_certs: true
-  datacenter: SDDC-Datacenter
-  folder: /CI/
-  vm_username: Administrator
-  vm_password: awvmware331!
+  datacenter: Homelab
+  folder: /CI Infrastructure/
+  vm_username: ansible
+  vm_password: password123!
   connection: winrm
   port: 5986
   winrm_transport: ntlm
@@ -21,35 +21,14 @@ lint: |
   ansible-lint
 platforms:
   - name: "c1-${GIT_COMMIT}"
-    template: ci-win2016x
+    template: win2019-core
     snapshot_src: base
-    cluster: Cluster-1
-    memory_mb: 8192
-    cpus: 4
-    datastore: WorkloadDatastore
+    cluster: Zollo Cluster
+    memory_mb: 4096
+    cpus: 2
+    datastore: lun4-nvme
     network:
-      - name: mgmt
-        ip: 10.139.5.230
-        netmask: 255.255.255.0
-        gateway: 10.139.5.1
-        dns_servers:
-        - 8.8.8.8
-        - 8.8.4.4
-  - name: "c2-${GIT_COMMIT}"
-    template: ci-win2019x
-    snapshot_src: base
-    cluster: Cluster-1
-    memory_mb: 8192
-    cpus: 4
-    datastore: WorkloadDatastore
-    network:
-      - name: mgmt
-        ip: 10.139.5.231
-        netmask: 255.255.255.0
-        gateway: 10.139.5.1
-        dns_servers:
-        - 8.8.8.8
-        - 8.8.4.4
+      - name: 192.168.40.0-vlan40-dmz
 provisioner:
   name: ansible
   lint:
@@ -69,8 +48,8 @@ scenario:
   name: default
   test_sequence:
     #- lint
-    - dependency
-    - syntax
+    #- dependency
+    #- syntax
     - create
     - prepare
     - converge

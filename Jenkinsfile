@@ -28,12 +28,22 @@ pipeline {
             }
         }
 
+
+        stage ('Display Debug Info') {
+            steps {
+                sh '''
+                    ansible --version
+                    molecule --version
+                '''
+            }
+        }
+
         stage ('Install Prerequisites') {
             steps {
                 sh "apk add --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ sshpass"
                 sh "pip install --upgrade pip"
                 sh "pip install --upgrade setuptools"
-                sh "pip install pyvmomi==6.7.3"
+                sh "pip install pyvmomi"
             }
         }
 

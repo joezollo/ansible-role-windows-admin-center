@@ -28,6 +28,3 @@
   #     groups: Administrators
 
   # - name: Ensure CI user profile is populated
-  #   win_user_profile:
-  #     name: molecule
-  #     username: molecule
