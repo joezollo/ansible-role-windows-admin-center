@@ -19,15 +19,25 @@ pipeline {
 
     stages {
 
-        stage ('Display Debug Info') {
+        stage ('Pull Molecule Windows Config') {
             steps {
-                sh '''
-                    ansible --version
-                    molecule --version
-                '''
+                checkout(
+                    [
+                        $class: 'GitSCM', 
+                        branches: [
+                            [name: '*/master']
+                        ], 
+                        doGenerateSubmoduleConfigurations: false, 
+                        extensions: [],
+                        submoduleCfg: [],
+                        userRemoteConfigs: [
+                            [credentialsId: 'github-ssh-joezollo',
+                            url: 'git@github.com:joezollo/ansible-ci-windows.git']
+                        ]
+                    ]
+                )
             }
         }
-
 
         stage ('Display Debug Info') {
             steps {
