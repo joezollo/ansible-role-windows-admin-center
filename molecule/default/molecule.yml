@@ -33,7 +33,7 @@ platforms:
 provisioner:
   name: ansible
   inventory:
-    all:
+    connection_options:
       ansible_shell_type: powershell
   lint:
     name: ansible-lint
