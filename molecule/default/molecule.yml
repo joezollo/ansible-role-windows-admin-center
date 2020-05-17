@@ -32,9 +32,6 @@ platforms:
       - name: 192.168.40.0-vlan40-dmz
 provisioner:
   name: ansible
-  inventory:
-    connection_options:
-      ansible_shell_type: powershell
   lint:
     name: ansible-lint
   log: true
