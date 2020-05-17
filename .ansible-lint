@@ -1,6 +1,6 @@
 exclude_paths:
  - ./molecule/
- - ./ci-venv/
+ - ./drivers/
 skip_list:
   - '602'
   - '401'

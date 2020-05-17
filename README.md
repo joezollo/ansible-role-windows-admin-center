@@ -9,7 +9,7 @@ Requirements
 ------------
 * Windows Server 2012
 * Windows Server 2012 R2
-* Windows Server 2016 
+* Windows Server 2016
 * Windows Server 2019
 
 Role Variables
@@ -21,9 +21,13 @@ Available variables are listed below, along with default values (see `defaults/m
 
 The state of Windows Admin Center, present (default) will install the latest version, absent will remove it.
 
+    wac_cleanup_installer: false
+
+Determines if the Windows Admin Center installer is deleted after installation.
+
     wac_download_url: https://aka.ms/WACDownload
 
-Download to the MSI Installation file, defaults to Microsoft's CDN which has the latest available versionl.
+Download to the MSI Installation file, defaults to Microsoft's CDN which has the latest available version.
 
     wac_download_path: C:\\Windows\\Temp\\wac.msi
 

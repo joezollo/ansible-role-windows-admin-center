@@ -32,6 +32,9 @@ platforms:
       - name: 192.168.40.0-vlan40-dmz
 provisioner:
   name: ansible
+  inventory:
+    all:
+      ansible_shell_type: powershell
   lint:
     name: ansible-lint
   log: true
@@ -48,13 +51,13 @@ verifier:
 scenario:
   name: default
   test_sequence:
-    #- lint
-    #- dependency
-    #- syntax
+    - lint
+    - dependency
+    - syntax
     - create
     - prepare
     - converge
     - idempotence
     - verify
-    # - cleanup
-    # - destroy
+    - cleanup
+    - destroy

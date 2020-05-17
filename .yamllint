@@ -2,9 +2,8 @@
 # Based on ansible-lint config
 extends: default
 ignore: |
-  */molecule/*
-  */ci-venv/*.yml
-  */ci-venv/*.yaml
+  *molecule/*
+  *drivers/*
 rules:
   braces:
     max-spaces-inside: 1
