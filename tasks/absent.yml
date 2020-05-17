@@ -9,7 +9,7 @@
 - name: Restart Server
   win_reboot:
     msg: Rebooting to Complete Windows Admin Center Installation
-  when: wac_uninstall.reboot_required == true
+  when: wac_uninstall.reboot_required
 
 - name:
   import_tasks: delegation.yml

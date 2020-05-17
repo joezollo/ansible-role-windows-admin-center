@@ -23,7 +23,7 @@
     path: "{{ wac_download_path }}"
     log_path: "{{ wac_log_path | default(omit) }}"
   register: wac_install
-  
+
 - name: Restart Server
   win_reboot:
     msg: Rebooting to Complete Windows Admin Center Installation
@@ -33,8 +33,8 @@
   win_file:
     path: "{{ wac_download_path }}"
     state: absent
-  when: wac_cleanup_installer == true
+  when: wac_cleanup_installer
 
 - name: Enable Constrained Delegation
   import_tasks: delegation.yml
-  when: wac_constrained_delegation_enabled == true
+  when: wac_constrained_delegation_enabled
