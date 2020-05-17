@@ -59,6 +59,7 @@ pipeline {
         stage ('Molecule Test') {
             steps {
                 sh "ls -al"
+                sh "ls -al ansible-ci-win"
                 sh "mv ansible-ci-win/molecule/create.yml molecule/"
                 sh "mv ansible-ci-win/molecule/create.yml molecule/"
                 sh "rm -rf ansible-ci-win/"
