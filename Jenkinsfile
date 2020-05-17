@@ -3,11 +3,10 @@
  */
 
 pipeline {
-
     agent {
         docker {
-            image 'quay.io/ansible/molecule:3.0.4'
-            args '--network host -u root:root -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}:/role -v $HOME/.cache:/root/.cache'
+            image 'quay.io/ansible/molecule:latest'
+            args '--network host -u root:root -v $HOME/.cache:/root/.cache'
         }
     }
 
@@ -21,10 +20,9 @@ pipeline {
 
         stage ('Pull Molecule Windows Config') {
             steps {
-
                 checkout(
                     [
-                        $class: 'GitSCM', 
+                        $class: 'GitSCM',
                         branches: [[name: '*/master']],
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ansible-ci-win']],
@@ -52,21 +50,17 @@ pipeline {
                 sh "apk add --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ sshpass"
                 sh "pip install --upgrade pip"
                 sh "pip install --upgrade setuptools"
-                sh "pip install pyvmomi"
+                sh "pip install -r requirements.txt"
             }
         }
 
         stage ('Molecule Test') {
             steps {
-                sh "ls -al"
-                sh "ls -al ansible-ci-win/"
                 sh "mv ansible-ci-win/create.yml molecule/"
                 sh "mv ansible-ci-win/destroy.yml molecule/"
                 sh "rm -rf ansible-ci-win/"
-                sh "ls -al molecule"
-                sh "molecule --debug test --all --destroy=never"
+                sh "molecule test --all --destroy=never"
             }
         }
-
     }
 }

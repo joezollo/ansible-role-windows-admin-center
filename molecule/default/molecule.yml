@@ -6,7 +6,7 @@ driver:
   hostname: zollo-vca01.home.zollo.net
   username: svc.ansible
   password: "ekiYOKR4!5t@2GBC"
-  validate_certs: true
+  validate_certs: false
   datacenter: Homelab
   folder: /CI Infrastructure/
   vm_username: ansible
