@@ -38,9 +38,9 @@ provisioner:
   ansible_args:
     - -vvvv
   playbooks:
-    create: ../drivers/vsphere_ssh/create.yml
+    create: ../../drivers/vsphere_ssh/create.yml
     converge: playbook.yml
-    destroy: ../drivers/vsphere_ssh/destroy.yml
+    destroy: ../../drivers/vsphere_ssh/destroy.yml
 verifier:
   name: testinfra
   lint:
