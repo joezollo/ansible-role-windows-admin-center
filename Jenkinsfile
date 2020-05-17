@@ -11,8 +11,7 @@ pipeline {
     }
 
     environment {
-        VCENTER = credentials('ci-lab')
-        VCENTER_HOST = credentials('ci-lab-vc')
+        VCENTER = credentials('infra-vcenter-zollo-vca01')
         ANSIBLE_HOST_KEY_CHECKING = "False"
     }
 
