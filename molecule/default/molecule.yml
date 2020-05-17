@@ -10,7 +10,7 @@ driver:
   datacenter: Homelab
   folder: /CI Infrastructure/
   vm_username: ansible
-  vm_password: password123!
+  vm_password: "password123!"
   connection: winrm
   port: 5986
   winrm_transport: ntlm
