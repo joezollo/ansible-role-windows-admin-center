@@ -64,7 +64,7 @@ pipeline {
                 sh "mv ansible-ci-win/destroy.yml molecule/"
                 sh "rm -rf ansible-ci-win/"
                 sh "ls -al molecule"
-                sh "molecule test --all --destroy=never"
+                sh "molecule --debug test --all --destroy=never"
             }
         }
 
