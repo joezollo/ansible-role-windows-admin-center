@@ -5,7 +5,7 @@
 pipeline {
     agent {
         docker {
-            image 'quay.io/ansible/molecule:latest'
+            image 'quay.io/ansible/molecule:3.0.4'
             args '--network host -u root:root -v $HOME/.cache:/root/.cache'
         }
     }
@@ -59,7 +59,7 @@ pipeline {
                 sh "mv ansible-ci-win/create.yml molecule/"
                 sh "mv ansible-ci-win/destroy.yml molecule/"
                 sh "rm -rf ansible-ci-win/"
-                sh "molecule test --all --destroy=never"
+                sh "molecule --debug test --all --destroy=never"
             }
         }
     }
