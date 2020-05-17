@@ -55,6 +55,7 @@ pipeline {
 
         stage ('Molecule Test') {
             steps {
+                sh "rm -rf drivers/"
                 sh "mv -fv ansible-ci-win/drivers/ ./"
                 sh "ls -al drivers/"
                 sh "rm -rf ansible-ci-win/"
