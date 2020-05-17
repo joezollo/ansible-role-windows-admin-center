@@ -17,7 +17,7 @@ pipeline {
 
     stages {
 
-        stage ('Pull Molecule Windows Config') {
+        stage ('Configure Molecule Driver') {
             steps {
                 checkout(
                     [
@@ -47,16 +47,16 @@ pipeline {
         stage ('Install Prerequisites') {
             steps {
                 sh "apk add --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ sshpass"
-                sh "pip install --upgrade pip"
-                sh "pip install --upgrade setuptools"
+                // sh "pip install --upgrade pip"
+                // sh "pip install --upgrade setuptools"
                 sh "pip install -r requirements.txt"
             }
         }
 
         stage ('Molecule Test') {
             steps {
-                sh "mv ansible-ci-win/create.yml molecule/"
-                sh "mv ansible-ci-win/destroy.yml molecule/"
+                sh "mv ansible-ci-win/drivers/ molecule"
+                sh "ls -al molecule"
                 sh "rm -rf ansible-ci-win/"
                 sh "molecule --debug test --all --destroy=never"
             }

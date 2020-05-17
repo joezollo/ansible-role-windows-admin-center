@@ -9,12 +9,13 @@ driver:
   validate_certs: false
   datacenter: Homelab
   folder: /CI Infrastructure/
-  vm_username: ansible
-  vm_password: "password123!"
-  connection: winrm
-  port: 5986
-  winrm_transport: ntlm
-  winrm_server_cert_validation: ignore
+  vm_username: Administrator
+  vm_password: password123!
+  connection: ssh
+  port: 22
+  shell_type: powershell
+  become_method: runas
+  become_user: Administrator
 lint: |
   set -e
   yamllint .
@@ -37,9 +38,9 @@ provisioner:
   ansible_args:
     - -vvvv
   playbooks:
-    create: ../create.yml
+    create: ../drivers/vsphere_ssh/create.yml
     converge: playbook.yml
-    destroy: ../destroy.yml
+    destroy: ../drivers/vsphere_ssh/destroy.yml
 verifier:
   name: testinfra
   lint:
