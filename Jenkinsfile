@@ -55,7 +55,7 @@ pipeline {
 
         stage ('Molecule Test') {
             steps {
-                sh "mv ansible-ci-win/drivers/ molecule"
+                sh "mv -v ansible-ci-win/* molecule/"
                 sh "ls -al molecule"
                 sh "rm -rf ansible-ci-win/"
                 sh "molecule --debug test --all"
