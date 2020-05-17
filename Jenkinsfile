@@ -58,7 +58,7 @@ pipeline {
                 sh "mv ansible-ci-win/drivers/ molecule"
                 sh "ls -al molecule"
                 sh "rm -rf ansible-ci-win/"
-                sh "molecule --debug test --all --destroy=never"
+                sh "molecule --debug test --all"
             }
         }
     }
