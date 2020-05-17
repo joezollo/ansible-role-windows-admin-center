@@ -4,8 +4,8 @@ dependency:
 driver:
   name: delegated
   hostname: ${VCENTER_HOST}
-  username: ${VCENTER_USR}
-  password: ${VCENTER_PSW}
+  username: svc.ansible
+  password: "ekiYOKR4!5t@2GBC"
   validate_certs: true
   datacenter: Homelab
   folder: /CI Infrastructure/
