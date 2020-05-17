@@ -8,7 +8,7 @@ driver:
   password: ekiYOKR4!5t@2GBC
   validate_certs: false
   datacenter: Homelab
-  folder: /CI Infrastructure/
+  folder: /CI Infrastructure/Instances/
   vm_username: Administrator
   vm_password: password123!
   connection: ssh
