@@ -1,6 +1,8 @@
 Ansible Role: Windows Admin Center
 =========
 
+[![Build Status](https://ci.zollo.net/buildStatus/icon?job=github-joezollo%2Fansible-role-windows-admin-center%2Fmaster)](https://ci.zollo.net/job/github-joezollo/job/ansible-role-windows-admin-center/job/master/)
+
 Installs or removes Windows Admin Center on Windows Server or Windows 10. Windows Admin Center is a locally deployed, browser-based app for managing servers, clusters, hyper-converged infrastructure, and Windows 10 PCs. It comes at no additional cost beyond Windows and is ready to use in production.
 
 Requirements
