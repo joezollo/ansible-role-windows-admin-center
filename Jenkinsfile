@@ -61,7 +61,7 @@ pipeline {
                 sh "ls -al"
                 sh "rm -rf ansible-ci-win/.git/"
                 sh "mv ansible-ci-win/ .."
-                sh "ls -al"
+                sh "ls -al molecule"
                 sh "molecule test --all --destroy=never"
             }
         }
