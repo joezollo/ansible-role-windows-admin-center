@@ -7,7 +7,7 @@ pipeline {
     agent {
         docker {
             image 'quay.io/ansible/molecule:3.0.4'
-            args '--network host -u root:root -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}:/role'
+            args '--network host -u root:root -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}:/role -v $HOME/.cache:/root/.cache'
         }
     }
 
