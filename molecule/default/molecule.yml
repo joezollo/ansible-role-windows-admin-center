@@ -3,7 +3,7 @@ dependency:
   name: galaxy
 driver:
   name: delegated
-  hostname: ${VCENTER_HOST}
+  hostname: zollo-vca01.home.zollo.net
   username: svc.ansible
   password: "ekiYOKR4!5t@2GBC"
   validate_certs: true
