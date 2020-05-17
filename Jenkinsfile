@@ -21,21 +21,20 @@ pipeline {
 
         stage ('Pull Molecule Windows Config') {
             steps {
+
                 checkout(
                     [
                         $class: 'GitSCM', 
-                        branches: [
-                            [name: '*/master']
-                        ], 
-                        doGenerateSubmoduleConfigurations: false, 
-                        extensions: [],
+                        branches: [[name: '*/master']],
+                        doGenerateSubmoduleConfigurations: false,
+                        extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ansible-ci-win']],
                         submoduleCfg: [],
-                        userRemoteConfigs: [
-                            [credentialsId: 'github-ssh-joezollo',
+                        userRemoteConfigs: [[credentialsId: 'github-ssh-joezollo',
                             url: 'git@github.com:joezollo/ansible-ci-windows.git']
                         ]
                     ]
                 )
+
             }
         }
 
@@ -59,6 +58,9 @@ pipeline {
 
         stage ('Molecule Test') {
             steps {
+                sh "ls -al"
+                sh "rm -rf ansible-ci-win/.git/"
+                sh "mv ansible-ci-win/ .."
                 sh "ls -al"
                 sh "molecule test --all --destroy=never"
             }
