@@ -3,9 +3,9 @@ dependency:
   name: galaxy
 driver:
   name: delegated
-  hostname: "${VCENTER_HOST}"
-  username: "${VCENTER_USR}"
-  password: "${VCENTER_PSW}"
+  hostname: ${VCENTER_HOST}
+  username: ${VCENTER_USR}
+  password: ${VCENTER_PSW}
   validate_certs: true
   datacenter: Homelab
   folder: /CI Infrastructure/
