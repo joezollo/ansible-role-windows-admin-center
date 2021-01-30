@@ -1,5 +1,4 @@
 ---
-
 - name: Run Task Associated with State
   include_tasks: "{{ wac_state }}.yml"
   when: wac_state is defined

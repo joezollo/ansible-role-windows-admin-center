@@ -1,0 +1,14 @@
+---
+- name: Import Module
+  win_shell: |
+    Import-Module "$env:ProgramFiles\windows admin center\PowerShell\Modules\ConnectionTools"
+    Import-Module "$env:ProgramFiles\windows admin center\PowerShell\Modules\ExtensionTools"
+    Import-Module "$env:ProgramFiles\windows admin center\PowerShell\Modules\ManagementTools"
+    Install-Extension "https://localhost:8443" "msft.sme.active-directory" "0.133.0"
+  loop:
+    - name: msft.sme.active-directory
+    - name: msft.sme.containers
+    - name: msft.sme.dhcp
+    - name: msft.sme.dns
+    - name: msft.sme.storage
+    - name: microsoft.security
