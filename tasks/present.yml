@@ -7,7 +7,9 @@
 
 - name: Set Appropriate Facts
   set_fact:
-    wac_args_extra: "{{ (wac_ssl_certificate_option == 'installed') | ternary(' SME_THUMBPRINT=' + wac_sme_thumbprint,' ') }}"
+    wac_args_extra: >-
+      {{ (wac_ssl_certificate_option == 'installed') |
+          ternary(' SME_THUMBPRINT=' + wac_sme_thumbprint,' ') }}
 
 - name: Debug WAC Args
   debug:
